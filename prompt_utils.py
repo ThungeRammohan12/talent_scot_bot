@@ -1,16 +1,14 @@
 from google import genai
 from google.genai import types
-import os
-from dotenv import load_dotenv
+import streamlit as st
 
-# Load environment variables from .env file
-load_dotenv()
 
 def ask_llm(prompt, model="gemini-2.5-flash"):
-    api_key = os.getenv("GEMINI_API_KEY")
+    # Get API key from Streamlit secrets
+    api_key = st.secrets.get("GEMINI_API_KEY")
 
     if not api_key:
-        return "⚠️ Missing API key. Please set GEMINI_API_KEY in .env file."
+        return "⚠️ Missing API key. Please set GEMINI_API_KEY in Streamlit Secrets."
 
     client = genai.Client(api_key=api_key)
 
